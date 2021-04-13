@@ -1,9 +1,13 @@
 import React from 'react';
-import Hello from './Hello'; // 헬로 컴포넌트 불러옴
+import Hello from './Hello';
+
+
+
 function App() {
   return (
     <div>
-      <Hello /> {/* 컴포넌트 사용방법 */}
+      <Hello name="react" color="red" isSpecial={true} />
+      <Hello color="pink" />
     </div>
   )
 }

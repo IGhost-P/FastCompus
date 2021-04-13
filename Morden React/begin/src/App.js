@@ -1,13 +1,12 @@
 import React from 'react';
-import Hello from './Hello';
+import Counter from './Counter';
 
 
 
 function App() {
   return (
     <div>
-      <Hello name="react" color="red" isSpecial={true} />
-      <Hello color="pink" />
+      <Counter />
     </div>
   )
 }

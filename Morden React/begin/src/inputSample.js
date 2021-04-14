@@ -1,21 +1,39 @@
 import React, { useState } from 'react';
 
 function InputSample() {
-    const [text, setText] = useState('');
+    const [inputs, setInputs] = useState({ // JSX에서 변경될 inputs을 객체로 만듬
+        name: '',
+        nickname: '',
+    });
+
+    const { name, nickname } = inputs; // 비구조 할당화로 iputs의 객체에 name이랑 nickName을 넣음
 
     const onChange = (e) => {
-        setText(e.target.value); {/* e는 이벤트에 등록하는 함수에서, 이벤트 객체 e를 가져온다. target은 이벤트 DOM을 받고, value는 값으로 받는다. */ }
+        const { value, name } = e.target;
+
+        setInputs({
+            ...inputs, // 기존의 inputs(객체)안 값을 복사 한다., 객체를 수정할띠 spread문법을 사용하자
+            [name]: value // name 키를 가진 값을 value로 설정 , name 값이 아니라, name키 <- value로 설정
+        });
     };
+
     const onReset = () => {
-        setText('');
+        setInputs({
+            name: '',
+            nickname: ''
+        });
+
     };
+
 
     return (
         <div>
-            <input onChange={onChange} value={text} /> {/* value를 text로 해야, input이 바뀔때. onchange할때, 다시 초기화 시킬수 있다.*/}
+            <input name="name" placeholder="이름" onChange={onChange} value={name} />
+            <input name="nickname" placeholder="닉네임" onChange={onChange} value={nickname} />
             <button onClick={onReset}>초기화</button>
             <div>
-                <b>값: {text} </b>
+                <b>이름: {name} </b>
+                <b>닉네임: {nickname} </b>
             </div>
         </div>
     );

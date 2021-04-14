@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react'; // useRef를 선택
 
 function InputSample() {
     const [inputs, setInputs] = useState({ // JSX에서 변경될 inputs을 객체로 만듬
         name: '',
         nickname: '',
     });
-
+    const nameInput = useRef(); // nameInput을 Ref로 사용할거라고 선언
     const { name, nickname } = inputs; // 비구조 할당화로 iputs의 객체에 name이랑 nickName을 넣음
 
     const onChange = (e) => {
@@ -22,13 +22,14 @@ function InputSample() {
             name: '',
             nickname: ''
         });
+        nameInput.current.focus(); // ref로 지정된 nameInput의 위치에 있는 DOM을 currnet가 가르킨다. 그리고 DOM함수를 사용하면 됨
 
     };
 
 
     return (
         <div>
-            <input name="name" placeholder="이름" onChange={onChange} value={name} />
+            <input name="name" placeholder="이름" onChange={onChange} value={name} ref={nameInput} />
             <input name="nickname" placeholder="닉네임" onChange={onChange} value={nickname} />
             <button onClick={onReset}>초기화</button>
             <div>

@@ -33,7 +33,7 @@ function InputSample() {
             <input name="nickname" placeholder="닉네임" onChange={onChange} value={nickname} />
             <button onClick={onReset}>초기화</button>
             <div>
-                <b>이름: {name} </b>
+                <b>이름: {name} </b> // 여기에 값이 들어오면 달라진다.
                 <b>닉네임: {nickname} </b>
             </div>
         </div>

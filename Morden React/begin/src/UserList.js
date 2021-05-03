@@ -9,24 +9,8 @@ function User({ user }) {
     // 이걸 이용해서, 여러번 선안 안하게 기본틀을 만듬
 }
 
-function UserList() {
-    const users = [
-        {
-            id: 1,
-            username: 'velopert',
-            email: 'public.velopert@gmail.com'
-        },
-        {
-            id: 2,
-            username: 'tester',
-            email: 'testert@gmail.com'
-        },
-        {
-            id: 3,
-            username: 'ysw',
-            email: 'ysw@gmail.com'
-        }
-    ];
+function UserList(users) {
+
 
     return (
         <div>

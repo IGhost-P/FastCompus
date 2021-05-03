@@ -1,8 +1,5 @@
-import React, { useRaf } from 'react';
-import Counter from './Counter';
-import InputSample from './inputSample';
-import UserList from './UserList'
-
+import React, { useRef } from 'react';
+import UserList from './UserList';
 
 function App() {
   const users = [
@@ -14,26 +11,23 @@ function App() {
     {
       id: 2,
       username: 'tester',
-      email: 'testert@gmail.com'
+      email: 'tester@example.com'
     },
     {
       id: 3,
-      username: 'ysw',
-      email: 'ysw@gmail.com'
+      username: 'liz',
+      email: 'liz@example.com'
     }
   ];
 
-  const nextId = useRaf(4); // Raf를 이런식으로 사용할수도있다!
-  const onCreat = () => {
-    console.log(nextId.current); //4
-    nextId.current += 1; // 이러면 생성후 id를 +1이 된다.
-  }
-  return (
-    <div>
-      <UserList users={users} />
+  const nextId = useRef(4);
+  const onCreate = () => {
+    // 나중에 구현 할 배열에 항목 추가하는 로직
+    // ...
 
-    </div>
-  )
+    nextId.current += 1;
+  };
+  return <UserList users={users} />;
 }
 
 export default App;

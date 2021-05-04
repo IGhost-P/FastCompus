@@ -5,14 +5,14 @@ import CreateUser from './CreateUser';
 function App() {
   const [inputs, setInputs] = useState({
     username: '',
-    email: '' // input이라는 객체 만듬
+    email: ''
   });
-  const { username, email } = inputs; // 선추출
+  const { username, email } = inputs;
   const onChange = e => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
-      [name]: value // name키에 있는 값을 value = email or 사용자이름 으로 등록
+      [name]: value
     });
   };
   const [users, setUsers] = useState([
@@ -40,13 +40,20 @@ function App() {
       username,
       email
     };
-    setUsers(users.concat(user)); // 컴캣 안에 있는 값을 users안에 합쳐줌 // setUser([...users,user]); //spread 해도 되는데 몇개 없으니 걍함
+    setUsers(users.concat(user));
 
     setInputs({
       username: '',
-      email: '' // 초기화
+      email: ''
     });
     nextId.current += 1;
+  };
+
+  const onRemove = id => {
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
+    // filter는 조건에 맞는 배열로 배열을 만듬
+    setUsers(users.filter(user => user.id !== id));
   };
   return (
     <>
@@ -56,7 +63,7 @@ function App() {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} />
+      <UserList users={users} onRemove={onRemove} />
     </>
   );
 }

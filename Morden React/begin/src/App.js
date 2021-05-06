@@ -18,7 +18,7 @@ function App() {
       const { name, value } = e.target;
       setInputs({
         ...inputs,
-        [name]: value
+        [name]: value // 이거는 추가라 의존이 아님, 의존은 해당 값을 불러와서 사용, name은 input에 있고, 해당 name은 키 이름을 가르킬 뿐이다
       });
     },
     [inputs]
@@ -96,3 +96,6 @@ function App() {
 export default App;
 
  // useCallBack : 이전에 만들었던 함수를 새로 만들지 않고 재 사용하기 위해 사용됨 = 함수를 위한 Hook이다.
+ // 변경이 없으면 리랜더링을 안하게 하는 경우도 았어서, 함수를 재사용할수 있으면 재사용하는게 좋다. (함수를 매번 만들면 최적화가 안된다.)
+ // 함수를 첫파라미터로 묶고, 두번째 파라미터에는 값을 넣는다. memo처럼 
+ // 값을 설정 안하면, 해당 값의 최신 값이 아니라 이전 컴포넌트 상태를 가져온다.

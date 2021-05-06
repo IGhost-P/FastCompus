@@ -13,16 +13,13 @@ function App() {
     email: ''
   });
   const { username, email } = inputs;
-  const onChange = useCallback(
-    e => {
-      const { name, value } = e.target;
-      setInputs({
-        ...inputs,
-        [name]: value // 이거는 추가라 의존이 아님, 의존은 해당 값을 불러와서 사용, name은 input에 있고, 해당 name은 키 이름을 가르킬 뿐이다
-      });
-    },
-    [inputs]
-  );
+  const onChange = useCallback(e => {
+    const { name, value } = e.target;
+    setInputs(inputs => ({
+      ...inputs,
+      [name]: value
+    }));
+  }, []);
   const [users, setUsers] = useState([
     {
       id: 1,
@@ -51,33 +48,27 @@ function App() {
       username,
       email
     };
-    setUsers(users.concat(user));
+    setUsers(users => users.concat(user)); // users가 함수 재 참조
 
     setInputs({
       username: '',
       email: ''
     });
     nextId.current += 1;
-  }, [users, username, email]);
+  }, [username, email]);
 
-  const onRemove = useCallback(
-    id => {
-      // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
-      // = user.id 가 id 인 것을 제거함
-      setUsers(users.filter(user => user.id !== id));
-    },
-    [users]
-  );
-  const onToggle = useCallback(
-    id => {
-      setUsers(
-        users.map(user =>
-          user.id === id ? { ...user, active: !user.active } : user
-        )
-      );
-    },
-    [users]
-  );
+  const onRemove = useCallback(id => {
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
+    setUsers(users => users.filter(user => user.id !== id));
+  }, []);
+  const onToggle = useCallback(id => {
+    setUsers(users =>
+      users.map(user =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  }, []);
   const count = useMemo(() => countActiveUsers(users), [users]);
   return (
     <>
@@ -95,7 +86,9 @@ function App() {
 
 export default App;
 
- // useCallBack : 이전에 만들었던 함수를 새로 만들지 않고 재 사용하기 위해 사용됨 = 함수를 위한 Hook이다.
- // 변경이 없으면 리랜더링을 안하게 하는 경우도 았어서, 함수를 재사용할수 있으면 재사용하는게 좋다. (함수를 매번 만들면 최적화가 안된다.)
- // 함수를 첫파라미터로 묶고, 두번째 파라미터에는 값을 넣는다. memo처럼 
- // 값을 설정 안하면, 해당 값의 최신 값이 아니라 이전 컴포넌트 상태를 가져온다.
+// 컴포넌트에서 리 랜더링이 불 필요할때 이전 랜더링 값을 다시 사용하는것 -> 최적화
+// 함수를 내보낼때 React.memo로 감싸 준다 , props가 바뀔때만 리 랜더링을 한다.
+// 하지만, 이메일 눌러서 업데이트를 할땐, 다시 다 리랜더링이 되는데, 이 이유는 해당 하는 함수들이 의존하고 있는 값이
+// user,, userlist의 값이기 때문에, 얘네 입장에선 바뀐것이니 리랜더링 해야하는것이다.
+// 이것을 해결할려면 해당 함수들을 기존에 참조 하고 있는 user를 참조 하면 안된다.
+// 즉, useStae의 함수형 업데이트를 이용한다.

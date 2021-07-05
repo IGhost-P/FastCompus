@@ -1,6 +1,6 @@
 import React from 'react'
 
-function counter({ number, onIncrease, onDecrease }) {
+function Counter({ number, onIncrease, onDecrease }) {
     return (
         <div>
             <h1>{number}</h1>
@@ -10,4 +10,4 @@ function counter({ number, onIncrease, onDecrease }) {
     )
 }
 
-export default counter
+export default Counter

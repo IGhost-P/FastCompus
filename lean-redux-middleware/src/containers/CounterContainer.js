@@ -1,7 +1,7 @@
 import React from 'react'
 import Counter from '../components/Counter'
 import { useSelector, useDispatch } from 'react-redux'
-import { decrease, increase } from '../modules/Counter';
+import { decrease, increase } from '../modules/counter';
 function CounterContainer() {
     const number = useSelector(state => state.counter); // 조회함
     const distpatch = useDispatch();

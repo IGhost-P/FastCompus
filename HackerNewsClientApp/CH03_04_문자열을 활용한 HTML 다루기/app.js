@@ -11,7 +11,7 @@ function getData(url) {
   return JSON.parse(ajax.response);
 }
 
-const newsFeed = getData(NEWS_URL);
+const newsFeed = getData(NEWS_URL); //url만 전달하면 된다.
 const ul = document.createElement('ul');
 
 window.addEventListener('hashchange', function () {
